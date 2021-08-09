@@ -1,0 +1,46 @@
+#pragma once
+#include <uchar.h>
+
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+#include "deck.h"
+
+enum class ESuit { HEARTS, DIAMONDS, CROSSES, SPADES, SHAMA, ENUM_COUNT };
+
+class Deck;
+class Card {
+  public:
+  friend Deck;
+  Card(const Card&& other);
+  const std::u32string& name() const;
+
+  int8_t value() const;
+
+  int8_t points() const;
+
+  ESuit suit() const;
+  static const std::unordered_map<int, std::string> SuitToColor;
+
+  private:
+  Card(std::u32string name, int8_t value, int8_t points, ESuit suit) :
+      _name(name), _value(value), _points(points), _suit(suit) {}
+  Card(const Card&) = delete;
+  Card& operator=(Card&) = delete;
+
+  Card& operator=(Card&&);
+
+  std::u32string _name;
+  int8_t _value;
+  int8_t _points;
+  ESuit _suit;
+};
+
+char* char_utf32_to_utf8(char32_t utf32, const char* buffer);
+
+std::ostream& operator<<(std::ostream& os, const char32_t* s);
+
+std::ostream& operator<<(std::ostream& os, const std::u32string& s);
+
+std::ostream& operator<<(std::ostream& os, const Card& card);
