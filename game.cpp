@@ -61,6 +61,9 @@ void Game::dealCards() {
 }
 
 void Game::renderTable() const {
+  usleep(200'000);
+  system("clear");
+
   //str1
   renderSpace(2);
   for (size_t i = 4; i != 0; --i) {
