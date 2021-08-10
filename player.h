@@ -2,15 +2,18 @@
 #include <set>
 #include <string>
 
-#include "card.h"
+#include "deck.h"
 
 class Player {
   public:
   Player(const std::string& name) : _name(name) {};
+  void TakeOneCard();
+
+  const std::set<std::unique_ptr<Card>>& getHand() const;
 
   private:
   std::string _name;
-  std::set<Card> hand;
+  std::set<std::unique_ptr<Card>> hand;
 };
 
 class User : public Player {

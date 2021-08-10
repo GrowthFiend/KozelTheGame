@@ -49,7 +49,7 @@ void Deck::Shuffle(size_t seed) {
   std::shuffle(cards.begin(), cards.end(), g);
 }
 
-void Deck::PrintCards(std::ostream& os) {
+void Deck::PrintCards(std::ostream& os) const {
   if (!cards.size()) {
     os << "no cards";
     return;
@@ -57,6 +57,16 @@ void Deck::PrintCards(std::ostream& os) {
   for (auto& p : cards) { os << *p; }
   os << std::endl;
 }
+
+void Deck::PrintCard(std::ostream& os, size_t pos) const {
+  if (!cards.size()) {
+    os << "no cards";
+    return;
+  }
+  os << *cards[pos] << std::endl;
+}
+
+const std::unique_ptr<Card>& Deck::ShowCard(size_t pos) const { return cards[pos]; }
 
 std::optional<std::unique_ptr<Card>> Deck::GiveOne() {
   if (cards.size()) {
@@ -66,3 +76,5 @@ std::optional<std::unique_ptr<Card>> Deck::GiveOne() {
   }
   return {};
 }
+
+size_t Deck::Size() const { return cards.size(); }

@@ -13,8 +13,11 @@ class Deck {
     return instance;
   }
   void Shuffle(size_t seed);
-  void PrintCards(std::ostream& os);
+  void PrintCards(std::ostream& os) const;
+  void PrintCard(std::ostream& os, size_t pos) const;
+  const std::unique_ptr<Card>& ShowCard(size_t pos) const;
   std::optional<std::unique_ptr<Card>> GiveOne();
+  size_t Size() const;
   ~Deck() {};
 
   private:

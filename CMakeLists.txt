@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Kozel LANGUAGES CXX)
+project(KozelTheGame LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(Kozel main.cpp card.h card.cpp deck.h deck.cpp game.h game.cpp player.h player.cpp)
+add_executable(KozelTheGame main.cpp card.h card.cpp deck.h deck.cpp game.h game.cpp player.h player.cpp)
