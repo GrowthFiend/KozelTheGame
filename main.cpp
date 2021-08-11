@@ -4,7 +4,7 @@
 #include "game.h"
 
 int main() {
-  Deck::GetInstance().Shuffle(2);
+  Deck::GetInstance().Shuffle(7);
   Deck::GetInstance().PrintCards(std::cout);
   Game game(EGameModes::PlayerX1, std::cin, std::cout);
   game.Start();

@@ -7,7 +7,14 @@
 
 #include "deck.h"
 
-enum class ESuit { HEARTS, DIAMONDS, CROSSES, SPADES, SHAMA, ENUM_COUNT };
+enum class ESuit {
+  NONE     = 0,
+  HEARTS   = 1 << 0,
+  DIAMONDS = 1 << 1,
+  CROSSES  = 1 << 2,
+  SPADES   = 1 << 3,
+  SHAMA    = (1 << 0) + (1 << 1) + (1 << 2) + (1 << 3)
+};
 
 class Deck;
 class Card {

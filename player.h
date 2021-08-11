@@ -8,7 +8,9 @@ class Player {
   public:
   Player(const std::string& name) : _name(name) {};
   void TakeOneCard();
-
+  bool HasGenerals() const;
+  bool HasSnotty() const;
+  bool HasFlushOr41() const;
   const std::set<std::unique_ptr<Card>>& getHand() const;
 
   private:

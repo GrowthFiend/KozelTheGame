@@ -28,8 +28,8 @@ void Game::playMatch() {
   renderTable();
   dealCards();
   showTrump();
-  //проверить на досрочные ходы
-  //сделать очередные ходы
+  if (isEndMatchTurn()) return;
+  isEarlyTurn();
   //забрать взятку
 
   //пока есть что добирать
@@ -43,12 +43,12 @@ void Game::playMatch() {
   //забрать взятку
 
   //посчитать общую взятку и начислить очки
-  score_t1 = 12;
+  score_t2 = 12;
   //вернуть карты в колоду
 }
 
 void Game::showWinner() const {
-  output << "Team" << (score_t2 > score_t1) + 1 << " win!" << std::endl;
+  output << "Team" << (score_t2 < score_t1) + 1 << " win!" << std::endl;
 }
 
 void Game::dealCards() {
@@ -160,9 +160,6 @@ void Game::renderTable() const {
   }
   while (i--) { renderSpace(1); }
   output << std::endl;
-
-  //str8
-  output << "------------------------" << std::endl;
 }
 
 void Game::renderFaceDown() const {
@@ -177,7 +174,61 @@ void Game::renderSpace(size_t count) const {
 }
 
 void Game::showTrump() {
-  const auto& x = Deck::GetInstance().ShowCard(Deck::GetInstance().Size() / 4 + rand() % 9);
-  output << "trump is " << *x << std::endl;
-  trump = x->suit();
+  bool isAce = false;
+  do {
+    const auto& x = Deck::GetInstance().ShowCard(Deck::GetInstance().Size() / 4 + rand() % 9);
+    output << "trump is " << *x << std::endl;
+    trump = x->suit();
+    if (x->points() == 11) {
+      isAce = true;
+      output << "Never believe in Ace!" << std::endl;
+    } else
+      isAce = false;
+    usleep(1000000);
+  } while (isAce);
+}
+
+bool Game::isEndMatchTurn() {
+  if (playerWithGenerals().has_value()) {
+    playerWithGenerals().value() % 2 ? score_t1 += 12 : score_t2 += 12;
+    return true;
+  }
+
+  if (playerWithSnotty().has_value()) {
+    playerWithSnotty().value() % 2 ? score_t1 += 6 : score_t2 += 6;
+    return true;
+  }
+  return false;
+}
+
+bool Game::isEarlyTurn() {
+  auto earlyPlayers = playersWithFlushOr41();
+  if (!earlyPlayers.empty()) {
+    for (const auto& playerNum : earlyPlayers) {
+      //хочет ли игрок сыграть молотку или 41?
+    }
+  }
+  return false;
+}
+
+std::optional<size_t> Game::playerWithGenerals() const {
+  for (size_t i = 0; i < 4; ++i) {
+    if (players[i]->HasGenerals()) { return i; }
+  }
+  return {};
+}
+
+std::optional<size_t> Game::playerWithSnotty() const {
+  for (size_t i = 0; i < 4; ++i) {
+    if (players[i]->HasSnotty()) { return i; }
+  }
+  return {};
+}
+
+std::vector<size_t> Game::playersWithFlushOr41() const {
+  std::vector<size_t> res;
+  for (size_t i = 0; i < 4; ++i) {
+    if (players[(i + lastTake) % 4]->HasFlushOr41()) { res.push_back((i + lastTake) % 4); }
+  }
+  return res;
 }

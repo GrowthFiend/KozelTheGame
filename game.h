@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "player.h"
@@ -17,6 +18,12 @@ class Game {
   void showWinner() const;
   void dealCards();
   void showTrump();
+  bool isEndMatchTurn();
+  bool isEarlyTurn();
+  std::optional<size_t> playerWithGenerals() const;
+  std::optional<size_t> playerWithSnotty() const;
+  std::vector<size_t> playersWithFlushOr41() const;
+
   void renderTable() const;
   void renderFaceDown() const;
   void renderSpace(size_t count) const;
