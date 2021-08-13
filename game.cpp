@@ -28,8 +28,11 @@ void Game::playMatch() {
   renderTable();
   dealCards();
   showTrump();
-  if (isEndMatchTurn()) return;
-  isEarlyTurn();
+  if (isEndMatchTurn()) {
+    //показать!
+    return;
+  }
+  TryEarlyTurn();
   //забрать взятку
 
   //пока есть что добирать
@@ -86,6 +89,7 @@ void Game::renderTable() const {
   renderSpace(1);
   renderFaceDown();
   output << Deck::GetInstance().Size() << ' ';
+  if (Deck::GetInstance().Size() < 10) output << ' ';
   renderSpace(3);
   if (players[3]->getHand().size() < 4) renderSpace(1);
   else
@@ -201,11 +205,14 @@ bool Game::isEndMatchTurn() {
   return false;
 }
 
-bool Game::isEarlyTurn() {
+bool Game::TryEarlyTurn() {
   auto earlyPlayers = playersWithFlushOr41();
   if (!earlyPlayers.empty()) {
     for (const auto& playerNum : earlyPlayers) {
-      //хочет ли игрок сыграть молотку или 41?
+      if (players[playerNum]->WantEarlyPlay()) {
+        for (size_t i = 0; i < 4; ++i) { players[(playerNum + i) % 4]->PlayFourCard(); }
+        return true;
+      }
     }
   }
   return false;

@@ -11,6 +11,8 @@ class Player {
   bool HasGenerals() const;
   bool HasSnotty() const;
   bool HasFlushOr41() const;
+  bool WantEarlyPlay() const;
+  void PlayFourCard();
   const std::set<std::unique_ptr<Card>>& getHand() const;
 
   private:

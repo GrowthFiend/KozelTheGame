@@ -19,7 +19,7 @@ class Game {
   void dealCards();
   void showTrump();
   bool isEndMatchTurn();
-  bool isEarlyTurn();
+  bool TryEarlyTurn();
   std::optional<size_t> playerWithGenerals() const;
   std::optional<size_t> playerWithSnotty() const;
   std::vector<size_t> playersWithFlushOr41() const;

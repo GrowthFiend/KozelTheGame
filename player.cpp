@@ -35,4 +35,14 @@ bool Player::HasFlushOr41() const {
     return false;
 }
 
+bool Player::WantEarlyPlay() const {
+  //TODO: анализ раннего хода
+  return true;
+}
+
+void Player::PlayFourCard() {
+  //TODO: если первый, то выложить 4 карты, иначе посмотреть на предыдущие карты на столе
+  // выбрать пасс или бить, выложить свои карты в открытую или в закрытую соответственно
+}
+
 const std::set<std::unique_ptr<Card>>& Player::getHand() const { return hand; }
