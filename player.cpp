@@ -36,13 +36,24 @@ bool Player::HasFlushOr41() const {
 }
 
 bool Player::WantEarlyPlay() const {
-  //TODO: анализ раннего хода
+  //TODO: анализ раннего хода стоит ли ходить?
+  // временно всегда да
   return true;
 }
 
-void Player::PlayFourCard() {
-  //TODO: если первый, то выложить 4 карты, иначе посмотреть на предыдущие карты на столе
-  // выбрать пасс или бить, выложить свои карты в открытую или в закрытую соответственно
+void Player::PlayFourCard(
+    size_t orderNum, std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& table) {
+  if (orderNum == 0) {
+    //    table[orderNum] =
+    //        std::move(std::make_pair(false, std::move(std::vector(std::make_move_iterator(hand.begin()),
+    //                                            std::make_move_iterator(hand.end())))));
+  } else {
+    //TODO: анализ предыдущих карт table[orderNum-1] и принятие решения бить или не бить?
+    // пока временно всегда скидывать
+    //    table[orderNum] =
+    //        std::move(std::make_pair(false, std::move(std::vector(std::make_move_iterator(hand.begin()),
+    //                                            std::make_move_iterator(hand.end())))));
+  }
 }
 
 const std::set<std::unique_ptr<Card>>& Player::getHand() const { return hand; }

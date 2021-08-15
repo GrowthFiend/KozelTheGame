@@ -24,6 +24,8 @@ class Game {
   std::optional<size_t> playerWithSnotty() const;
   std::vector<size_t> playersWithFlushOr41() const;
 
+  std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& getTable();
+
   void renderTable() const;
   void renderFaceDown() const;
   void renderSpace(size_t count) const;
@@ -34,5 +36,5 @@ class Game {
   int score_t2;
   int lastTake;
   ESuit trump;
-  std::vector<std::vector<std::unique_ptr<Card>>> table;
+  std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>> table;
 };

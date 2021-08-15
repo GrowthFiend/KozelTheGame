@@ -12,7 +12,8 @@ class Player {
   bool HasSnotty() const;
   bool HasFlushOr41() const;
   bool WantEarlyPlay() const;
-  void PlayFourCard();
+  void PlayFourCard(
+      size_t orderNum, std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& table);
   const std::set<std::unique_ptr<Card>>& getHand() const;
 
   private:

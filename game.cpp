@@ -102,7 +102,7 @@ void Game::renderTable() const {
     renderFaceDown();
   renderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
-    if (table[0].size() < i) renderSpace(1);
+    if (table[0].second.size() < i) renderSpace(1);
     else
       renderFaceDown();
   }
@@ -118,7 +118,7 @@ void Game::renderTable() const {
     renderFaceDown();
   renderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
-    if (table[1].size() < i) renderSpace(1);
+    if (table[1].second.size() < i) renderSpace(1);
     else
       renderFaceDown();
   }
@@ -134,7 +134,7 @@ void Game::renderTable() const {
     renderFaceDown();
   renderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
-    if (table[2].size() < i) renderSpace(1);
+    if (table[2].second.size() < i) renderSpace(1);
     else
       renderFaceDown();
   }
@@ -148,7 +148,7 @@ void Game::renderTable() const {
   renderSpace(2);
 
   for (size_t i = 1; i <= 4; ++i) {
-    if (table[3].size() < i) renderSpace(1);
+    if (table[3].second.size() < i) renderSpace(1);
     else
       renderFaceDown();
   }
@@ -176,6 +176,8 @@ void Game::renderFaceDown() const {
 void Game::renderSpace(size_t count) const {
   while (count--) output << "   ";
 }
+
+std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& Game::getTable() { return table; }
 
 void Game::showTrump() {
   bool isAce = false;
@@ -210,7 +212,9 @@ bool Game::TryEarlyTurn() {
   if (!earlyPlayers.empty()) {
     for (const auto& playerNum : earlyPlayers) {
       if (players[playerNum]->WantEarlyPlay()) {
-        for (size_t i = 0; i < 4; ++i) { players[(playerNum + i) % 4]->PlayFourCard(); }
+        for (size_t i = 0; i < 4; ++i) {
+          players[(playerNum + i) % 4]->PlayFourCard(i, getTable());
+        }
         return true;
       }
     }
