@@ -1,4 +1,5 @@
 #pragma once
+
 #include <set>
 #include <string>
 
@@ -7,7 +8,7 @@
 class Player {
   public:
   Player(const std::string& name) : _name(name) {};
-  void TakeOneCard();
+  void TakeOneCard(Deck& deck);
   bool HasGenerals() const;
   bool HasSnotty() const;
   bool HasFlushOr41() const;
@@ -30,3 +31,5 @@ class Bot : public Player {
   public:
   Bot(const std::string& name) : Player(name) {};
 };
+
+using Players = std::vector<std::unique_ptr<Player>>;

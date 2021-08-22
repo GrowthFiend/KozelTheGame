@@ -1,9 +1,10 @@
 #include "game.h"
 
-Game::Game(EGameModes mode, IRenderSystem& rs) : score_t1(0), score_t2(0), lastTake(0), render(rs) {
+Game::Game(EGameModes mode, std::unique_ptr<IUserInterface>&& userInterface) :
+    score_t1(0), score_t2(0), lastTake(0), ui(std::move(userInterface)) {
   switch (mode) {
     case EGameModes::PlayerX1: {
-      players.push_back(std::make_unique<Player>(User(render.AskUserName())));
+      players.push_back(std::make_unique<Player>(User(ui->AskUserName())));
       break;
     }
     case EGameModes::BotsOnly: players.push_back(std::make_unique<Player>(Bot("Bogey"))); break;
@@ -12,7 +13,7 @@ Game::Game(EGameModes mode, IRenderSystem& rs) : score_t1(0), score_t2(0), lastT
   players.push_back(std::make_unique<Player>(Bot("Screem")));
   players.push_back(std::make_unique<Player>(Bot("Bully")));
   players.push_back(std::make_unique<Player>(Bot("Sleepy")));
-  table.reserve(4);
+  stake.reserve(4);
 }
 
 void Game::Start() {
@@ -21,7 +22,7 @@ void Game::Start() {
 }
 
 void Game::playMatch() {
-  renderTable();
+  showTable();
   dealCards();
   showTrump();
   if (isEndMatchTurn()) {
@@ -46,30 +47,30 @@ void Game::playMatch() {
   //вернуть карты в колоду
 }
 
-void Game::showWinner() const {
-  output << "Team" << (score_t2 < score_t1) + 1 << " win!" << std::endl;
-}
+void Game::showWinner() const { ui->RenderWinner((score_t2 < score_t1) + 1); }
+
+void Game::showTable() const { ui->RenderTable(players, stake, deck, score_t1, score_t2); }
 
 void Game::dealCards() {
   for (size_t i = 0; i < 4; ++i) {
     for (size_t j = 0; j < 4; ++j) {
-      players[(j + lastTake + (Deck::GetInstance().Size() > (36 - 4 * 4))) % 4]->TakeOneCard();
-      renderTable();
+      players[(j + lastTake + (deck.Size() > (36 - 4 * 4))) % 4]->TakeOneCard(deck);
+      showTable();
     }
   }
 }
 
-std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& Game::getTable() { return table; }
+std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& Game::getStake() { return stake; }
 
 void Game::showTrump() {
   bool isAce = false;
   do {
-    const auto& x = Deck::GetInstance().ShowCard(Deck::GetInstance().Size() / 4 + rand() % 9);
-    output << "trump is " << *x << std::endl;
+    const auto& x = deck.ShowCard(deck.Size() / 4 + rand() % 9);
+    ui->TrumpIs(*x);
     trump = x->suit();
     if (x->points() == 11) {
       isAce = true;
-      output << "Never believe in Ace!" << std::endl;
+      ui->NeverBeliveInAce();
     } else
       isAce = false;
     usleep(1000000);
@@ -95,7 +96,7 @@ bool Game::TryEarlyTurn() {
     for (const auto& playerNum : earlyPlayers) {
       if (players[playerNum]->WantEarlyPlay()) {
         for (size_t i = 0; i < 4; ++i) {
-          players[(playerNum + i) % 4]->PlayFourCard(i, getTable());
+          players[(playerNum + i) % 4]->PlayFourCard(i, getStake());
         }
         return true;
       }

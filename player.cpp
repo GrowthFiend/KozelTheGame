@@ -1,24 +1,20 @@
 #include "player.h"
 
-void Player::TakeOneCard() {
-  auto x = Deck::GetInstance().GiveOne();
+#include <algorithm>
+
+void Player::TakeOneCard(Deck& deck) {
+  auto x = deck.GiveOne();
   if (x.has_value()) hand.insert(std::move(x.value()));
 }
 
 bool Player::HasGenerals() const {
-  int i = 0;
-  for (const auto& card : hand) {
-    if (card->value() >= 8) ++i;
-  }
-  return i == 4;
+  //  return std::count_if(hand.begin(), hand.end(), [](auto c) { return c->value() >= 8; }) == 4;
+  return true;
 }
 
 bool Player::HasSnotty() const {
-  int i = 0;
-  for (const auto& card : hand) {
-    if (card->value() == 0 || card->value() == 18) ++i;
-  }
-  return i == 4;
+  //  return std::count_if(hand.begin(), hand.end(), [](auto c) { return c->value() % 18 == 0; }) == 4;
+  return true;
 }
 
 bool Player::HasFlushOr41() const {

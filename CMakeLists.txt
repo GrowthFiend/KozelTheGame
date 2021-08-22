@@ -10,6 +10,7 @@ add_executable(KozelTheGame main.cpp
     deck.h deck.cpp
     game.h game.cpp
     player.h player.cpp
-    irendersystem.h
-    textrender.h textrender.cpp
-    worku32srting.h worku32srting.cpp)
+    iuserinterface.h
+    textui.h textui.cpp
+    worku32srting.h worku32srting.cpp
+    misc.h)

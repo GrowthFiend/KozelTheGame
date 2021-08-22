@@ -1,38 +1,41 @@
 #pragma once
+
 #include <iostream>
 #include <memory>
 #include <optional>
 #include <vector>
 
-#include "irendersystem.h"
+#include "iuserinterface.h"
 #include "player.h"
 
 enum class EGameModes { PlayerX1, BotsOnly };
 
 class Game {
   public:
-  Game(EGameModes mode, IRenderSystem& rs);
+  Game(EGameModes mode, std::unique_ptr<IUserInterface>&& userInterface);
   void Start();
 
   private:
   void playMatch();
-  void showWinner() const;
   void dealCards();
   void showTrump();
+  void showWinner() const;
+  void showTable() const;
   bool isEndMatchTurn();
   bool TryEarlyTurn();
   std::optional<size_t> playerWithGenerals() const;
   std::optional<size_t> playerWithSnotty() const;
   std::vector<size_t> playersWithFlushOr41() const;
 
-  std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& getTable();
+  Stake& getStake();
 
   int score_t1;
   int score_t2;
   int lastTake;
+  Deck deck;
   ESuit trump;
-  std::vector<std::unique_ptr<Player>> players;
-  std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>> table;
+  Players players;
+  Stake stake;
 
-  IRenderSystem render;
+  std::unique_ptr<IUserInterface> ui;
 };
