@@ -4,13 +4,14 @@
 #include <optional>
 #include <vector>
 
+#include "irendersystem.h"
 #include "player.h"
 
 enum class EGameModes { PlayerX1, BotsOnly };
 
 class Game {
   public:
-  Game(EGameModes mode, std::istream& is, std::ostream& os);
+  Game(EGameModes mode, IRenderSystem& rs);
   void Start();
 
   private:
@@ -26,15 +27,12 @@ class Game {
 
   std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& getTable();
 
-  void renderTable() const;
-  void renderFaceDown() const;
-  void renderSpace(size_t count) const;
-  std::vector<std::unique_ptr<Player>> players;
-  std::istream& input;
-  std::ostream& output;
   int score_t1;
   int score_t2;
   int lastTake;
   ESuit trump;
+  std::vector<std::unique_ptr<Player>> players;
   std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>> table;
+
+  IRenderSystem render;
 };

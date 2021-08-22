@@ -8,10 +8,12 @@
 class Card;
 class Deck {
   public:
-  static Deck& GetInstance() {
-    static Deck instance;
-    return instance;
-  }
+  Deck();
+  Deck(const Deck&) = delete;
+  Deck& operator=(Deck&) = delete;
+  Deck(const Deck&&)     = delete;
+  Deck& operator=(Deck&&) = delete;
+
   void Shuffle(size_t seed);
   void PrintCards(std::ostream& os) const;
   void PrintCard(std::ostream& os, size_t pos) const;
@@ -21,10 +23,5 @@ class Deck {
   ~Deck() {};
 
   private:
-  Deck();
-  Deck(const Deck&) = delete;
-  Deck& operator=(Deck&) = delete;
-  Deck(const Deck&&)     = delete;
-  Deck& operator=(Deck&&) = delete;
   std::vector<std::unique_ptr<Card>> cards;
 };

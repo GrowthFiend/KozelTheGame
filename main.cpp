@@ -1,12 +1,11 @@
 #include <iostream>
 
-#include "deck.h"
 #include "game.h"
+#include "textrender.h"
 
 int main() {
-  Deck::GetInstance().Shuffle(7);
-  Deck::GetInstance().PrintCards(std::cout);
-  Game game(EGameModes::PlayerX1, std::cin, std::cout);
+  TextRender tr(std::cin, std::cout);
+  Game game(EGameModes::PlayerX1, tr);
   game.Start();
 
   return 0;
