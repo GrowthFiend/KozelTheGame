@@ -22,7 +22,7 @@ bool Player::HasFlushOr41() const {
   int pointsSum = 0;
   bool hasShama = false;
   for (const auto& card : hand) {
-    isFlush |= static_cast<int>(card->suit());
+    isFlush &= static_cast<int>(card->suit());
     pointsSum += card->points();
     if (card->suit() == ESuit::SHAMA) hasShama = true;
   }
