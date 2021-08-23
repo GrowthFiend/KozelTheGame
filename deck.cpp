@@ -4,7 +4,7 @@
 #include <random>
 
 Deck::Deck() {
-  cards.push_back(std::make_unique<Card>(Card {18, 0, ESuit::SHAMA}));
+  cards.push_back(std::make_unique<Card>(Card {18, 0, ESuit::ANY_SUIT}));
   cards.push_back(std::make_unique<Card>(Card {1, 0, ESuit::SPADES}));
   cards.push_back(std::make_unique<Card>(Card {2, 0, ESuit::SPADES}));
   cards.push_back(std::make_unique<Card>(Card {3, 0, ESuit::SPADES}));
@@ -24,19 +24,19 @@ Deck::Deck() {
   cards.push_back(std::make_unique<Card>(Card {8, 11, ESuit::HEARTS}));
   cards.push_back(std::make_unique<Card>(Card {0, 0, ESuit::DIAMONDS}));
   cards.push_back(std::make_unique<Card>(Card {1, 0, ESuit::DIAMONDS}));
-  cards.push_back(std::make_unique<Card>(Card {2, 0, ESuit::DIAMONDS}));
+  cards.push_back(std::make_unique<Card>(Card {2, 0, ESuit::DIAMONDS}));  //
   cards.push_back(std::make_unique<Card>(Card {3, 0, ESuit::DIAMONDS}));
   cards.push_back(std::make_unique<Card>(Card {4, 2, ESuit::DIAMONDS}));
   cards.push_back(std::make_unique<Card>(Card {5, 3, ESuit::DIAMONDS}));
-  cards.push_back(std::make_unique<Card>(Card {6, 4, ESuit::DIAMONDS}));
+  cards.push_back(std::make_unique<Card>(Card {6, 4, ESuit::DIAMONDS}));  //
   cards.push_back(std::make_unique<Card>(Card {7, 10, ESuit::DIAMONDS}));
   cards.push_back(std::make_unique<Card>(Card {8, 11, ESuit::DIAMONDS}));
   cards.push_back(std::make_unique<Card>(Card {0, 0, ESuit::CROSSES}));
-  cards.push_back(std::make_unique<Card>(Card {1, 0, ESuit::CROSSES}));
+  cards.push_back(std::make_unique<Card>(Card {1, 0, ESuit::CROSSES}));  //
   cards.push_back(std::make_unique<Card>(Card {2, 0, ESuit::CROSSES}));
   cards.push_back(std::make_unique<Card>(Card {3, 0, ESuit::CROSSES}));
   cards.push_back(std::make_unique<Card>(Card {4, 2, ESuit::CROSSES}));
-  cards.push_back(std::make_unique<Card>(Card {5, 3, ESuit::CROSSES}));
+  cards.push_back(std::make_unique<Card>(Card {5, 3, ESuit::CROSSES}));  //
   cards.push_back(std::make_unique<Card>(Card {6, 4, ESuit::CROSSES}));
   cards.push_back(std::make_unique<Card>(Card {7, 10, ESuit::CROSSES}));
   cards.push_back(std::make_unique<Card>(Card {8, 11, ESuit::CROSSES}));

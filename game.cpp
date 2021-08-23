@@ -23,6 +23,7 @@ void Game::Start() {
 
 void Game::playMatch() {
   showTable();
+  //  deck.Shuffle(185);
   dealCards();
   showTrump();
   if (isEndMatchTurn()) {
@@ -122,7 +123,9 @@ std::optional<size_t> Game::playerWithSnotty() const {
 std::vector<size_t> Game::playersWithFlushOr41() const {
   std::vector<size_t> res;
   for (size_t i = 0; i < 4; ++i) {
-    if (players[(i + lastTake) % 4]->HasFlushOr41()) { res.push_back((i + lastTake) % 4); }
+    if (players[(i + lastTake) % 4]->HasFlush() || players[(i + lastTake) % 4]->Has41()) {
+      res.push_back((i + lastTake) % 4);
+    }
   }
   return res;
 }

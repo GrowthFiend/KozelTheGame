@@ -11,7 +11,8 @@ class Player {
   void TakeOneCard(Deck& deck);
   bool HasGenerals() const;
   bool HasSnotty() const;
-  bool HasFlushOr41() const;
+  bool HasFlush() const;
+  bool Has41() const;
   bool WantEarlyPlay() const;
   void PlayFourCard(
       size_t orderNum, std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& table);

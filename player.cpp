@@ -1,6 +1,7 @@
 #include "player.h"
 
 #include <algorithm>
+#include <numeric>
 
 void Player::TakeOneCard(Deck& deck) {
   auto x = deck.GiveOne();
@@ -8,27 +9,26 @@ void Player::TakeOneCard(Deck& deck) {
 }
 
 bool Player::HasGenerals() const {
-  //  return std::count_if(hand.begin(), hand.end(), [](auto c) { return c->value() >= 8; }) == 4;
-  return true;
+  return std::count_if(hand.begin(), hand.end(), [](auto& c) { return c->value() >= 8; }) == 4;
 }
 
 bool Player::HasSnotty() const {
-  //  return std::count_if(hand.begin(), hand.end(), [](auto c) { return c->value() % 18 == 0; }) == 4;
-  return true;
+  return std::count_if(hand.begin(), hand.end(), [](auto& c) { return c->value() % 18 == 0; }) == 4;
 }
 
-bool Player::HasFlushOr41() const {
-  int isFlush   = static_cast<int>((*hand.begin())->suit());
+bool Player::HasFlush() const {
+  return std::accumulate(hand.begin(), hand.end(), static_cast<int>(ESuit::ANY_SUIT),
+      [&](int SuitOfFlush, auto& card) { return SuitOfFlush &= card->suit(); });
+}
+
+bool Player::Has41() const {
   int pointsSum = 0;
   bool hasShama = false;
   for (const auto& card : hand) {
-    isFlush &= static_cast<int>(card->suit());
     pointsSum += card->points();
-    if (card->suit() == ESuit::SHAMA) hasShama = true;
+    if (card->suit() == ESuit::ANY_SUIT) hasShama = true;
   }
-  if (isFlush || pointsSum > 40 || (pointsSum > 29 && hasShama)) return true;
-  else
-    return false;
+  return (pointsSum > 40 || (pointsSum > 29 && hasShama));
 }
 
 bool Player::WantEarlyPlay() const {

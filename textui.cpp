@@ -9,12 +9,12 @@ const std::unordered_map<int, std::string> TextUI::SuitToColor {
     {static_cast<int>(ESuit::DIAMONDS), "\x1b[31;1;47m"},
     {static_cast<int>(ESuit::CROSSES), "\x1b[30;1;47m"},
     {static_cast<int>(ESuit::SPADES), "\x1b[30;47m"},
-    {static_cast<int>(ESuit::SHAMA), "\x1b[30;47m"},
+    {static_cast<int>(ESuit::ANY_SUIT), "\x1b[30;47m"},
 };
 
 void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck& deck, int score_t1,
     int score_t2) const {
-  usleep(200'000);
+  //  usleep(200'000);
   system("clear");
 
   //str1
