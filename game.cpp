@@ -61,15 +61,13 @@ void Game::dealCards() {
   }
 }
 
-std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& Game::getStake() { return stake; }
-
 void Game::showTrump() {
   bool isAce = false;
   do {
     const auto& x = deck.ShowCard(deck.Size() / 4 + rand() % 9);
-    ui->TrumpIs(*x);
-    trump = x->suit();
-    if (x->points() == 11) {
+    ui->TrumpIs(x);
+    trump = x.suit();
+    if (x.points() == 11) {
       isAce = true;
       ui->NeverBeliveInAce();
     } else
@@ -97,7 +95,8 @@ bool Game::TryEarlyTurn() {
     for (const auto& playerNum : earlyPlayers) {
       if (players[playerNum]->WantEarlyPlay()) {
         for (size_t i = 0; i < 4; ++i) {
-          players[(playerNum + i) % 4]->PlayFourCard(i, getStake());
+          players[(playerNum + i) % 4]->PlayFourCard(i, stake);
+          showTable();
         }
         return true;
       }

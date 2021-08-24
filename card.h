@@ -9,22 +9,26 @@ enum ESuit {
   SPADES   = 1 << 3,
   ANY_SUIT = HEARTS | DIAMONDS | CROSSES | SPADES
 };
-
+class Deck;
 class Card {
   public:
-  Card(const Card&& other);
+  friend Deck;
   Card(int8_t value, int8_t points, ESuit suit) : _value(value), _points(points), _suit(suit) {}
+  Card(Card&& other);
+  Card& operator    =(Card&& other);
+  Card(const Card&) = default;
+  Card& operator=(const Card&) = default;
   int8_t value() const;
   int8_t points() const;
   ESuit suit() const;
 
   private:
-  Card(const Card&) = delete;
-  Card& operator=(Card&) = delete;
-
-  Card& operator=(Card&&);
+  //  Card(const Card&) = delete;
+  //  Card& operator=(Card&) = delete;
 
   int8_t _value;
   int8_t _points;
   ESuit _suit;
 };
+
+bool operator<(const Card& lhs, const Card& rhs);

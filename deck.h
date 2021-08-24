@@ -6,7 +6,7 @@
 
 #include "card.h"
 
-using Stake = std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>;
+using Stake = std::vector<std::pair<bool, std::vector<Card>>>;
 
 class Deck {
   public:
@@ -17,11 +17,11 @@ class Deck {
   Deck& operator=(Deck&&) = delete;
 
   void Shuffle(size_t seed);
-  const std::unique_ptr<Card>& ShowCard(size_t pos) const;
-  std::optional<std::unique_ptr<Card>> GiveOne();
+  const Card& ShowCard(size_t pos) const;
+  std::optional<Card> GiveOne();
   size_t Size() const;
   ~Deck() {};
 
   private:
-  std::vector<std::unique_ptr<Card>> cards;
+  std::vector<Card> cards;
 };

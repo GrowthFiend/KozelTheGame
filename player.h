@@ -14,13 +14,12 @@ class Player {
   bool HasFlush() const;
   bool Has41() const;
   bool WantEarlyPlay() const;
-  void PlayFourCard(
-      size_t orderNum, std::vector<std::pair<bool, std::vector<std::unique_ptr<Card>>>>& table);
-  const std::set<std::unique_ptr<Card>>& getHand() const;
+  void PlayFourCard(size_t orderNum, std::vector<std::pair<bool, std::vector<Card>>>& stake);
+  const std::set<Card>& getHand() const;
 
   private:
   std::string _name;
-  std::set<std::unique_ptr<Card>> hand;
+  std::set<Card> hand;
 };
 
 class User : public Player {

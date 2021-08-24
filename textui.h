@@ -16,7 +16,7 @@ class TextUI : public IUserInterface {
   void RenderFaceDown() const override;
   void RenderSpace(size_t count) const override;
   void RenderWinner(int team) const override;
-  void TrumpIs(Card& card) const override;
+  void TrumpIs(const Card& card) const override;
   void NeverBeliveInAce() const override;
   std::string AskUserName() const override;
 

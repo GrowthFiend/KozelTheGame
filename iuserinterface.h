@@ -15,7 +15,7 @@ class IUserInterface {
   virtual void RenderSpace(size_t count) const = 0;
   virtual void RenderWinner(int team) const    = 0;
   virtual std::string AskUserName() const      = 0;
-  virtual void TrumpIs(Card& card) const       = 0;
+  virtual void TrumpIs(const Card& card) const = 0;
   virtual void NeverBeliveInAce() const        = 0;
   virtual ~IUserInterface() {};
 };

@@ -5,6 +5,7 @@
 #include "worku32srting.h"
 
 const std::unordered_map<int, std::string> TextUI::SuitToColor {
+    {static_cast<int>(ESuit::NONE), "\x1b[0m"},
     {static_cast<int>(ESuit::HEARTS), "\x1b[31;47m"},
     {static_cast<int>(ESuit::DIAMONDS), "\x1b[31;1;47m"},
     {static_cast<int>(ESuit::CROSSES), "\x1b[30;1;47m"},
@@ -109,7 +110,7 @@ void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck&
   RenderSpace(2);
   size_t i = 4;
   for (const auto& card : players[0]->getHand()) {
-    output << *card;
+    output << card;
     --i;
   }
   while (i--) { RenderSpace(1); }
@@ -143,8 +144,10 @@ std::u32string GenCardName(const Card& card) {
     suit = 0xC << 4;
   else if (card.suit() == ESuit::CROSSES)
     suit = 0xD << 4;
-  else
+  else if (card.suit() == ESuit::SPADES)
     suit = 0xA << 4;
+  else
+    return {0x0000};
   char32_t nominal;
   if (card.value() % 18 == 0) nominal = 0x6;
   else if (card.value() == 1)
@@ -167,7 +170,7 @@ std::u32string GenCardName(const Card& card) {
   return {result};
 }
 
-void TextUI::TrumpIs(Card& card) const { output << "Trump is: " << card << std::endl; }
+void TextUI::TrumpIs(const Card& card) const { output << "Trump is: " << card << std::endl; }
 
 void TextUI::NeverBeliveInAce() const { output << "Never belive in Ace!" << std::endl; }
 

@@ -27,8 +27,6 @@ class Game {
   std::optional<size_t> playerWithSnotty() const;
   std::vector<size_t> playersWithFlushOr41() const;
 
-  Stake& getStake();
-
   int score_t1;
   int score_t2;
   int lastTake;
