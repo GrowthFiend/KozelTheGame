@@ -1,7 +1,8 @@
 #include "card.h"
 
-#include <iostream>
 #include <tuple>
+
+Card::Card(int8_t value, int8_t points, ESuit suit) : _value(value), _points(points), _suit(suit) {}
 
 Card::Card(Card &&other) : _value(other._value), _points(other._points), _suit(other._suit) {
   other._value  = -1;

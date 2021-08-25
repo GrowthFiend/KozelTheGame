@@ -15,13 +15,14 @@ const std::unordered_map<int, std::string> TextUI::SuitToColor {
 
 void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck& deck, int score_t1,
     int score_t2) const {
-  //  usleep(200'000);
+  usleep(200'000);
   system("clear");
 
   //str1
   RenderSpace(2);
   for (size_t i = 4; i != 0; --i) {
-    if (players[2]->getHand().size() < i) RenderSpace(1);
+    if (players[2]->getHand().size() < i || players[2]->getHand()[i - 1].suit() == ESuit::NONE)
+      RenderSpace(1);
     else
       RenderFaceDown();
   }
@@ -34,7 +35,8 @@ void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck&
   output << std::endl;
 
   //str3
-  if (players[1]->getHand().size() < 1) RenderSpace(1);
+  if (players[1]->getHand().size() < 1 || players[1]->getHand()[0].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
@@ -42,55 +44,68 @@ void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck&
   output << deck.Size() << ' ';
   if (deck.Size() < 10) output << ' ';
   RenderSpace(3);
-  if (players[3]->getHand().size() < 4) RenderSpace(1);
+  if (players[3]->getHand().size() < 4 || players[3]->getHand()[3].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
   //str4
-  if (players[1]->getHand().size() < 2) RenderSpace(1);
+  if (players[1]->getHand().size() < 2 || players[1]->getHand()[1].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
     if (stake[0].second.size() < i) RenderSpace(1);
-    else
+    else if (stake[0].first == false)
       RenderFaceDown();
+    else
+      output << stake[0].second[i - 1];
   }
   RenderSpace(1);
-  if (players[3]->getHand().size() < 3) RenderSpace(1);
+  if (players[3]->getHand().size() < 3 || players[3]->getHand()[2].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
   //str5
-  if (players[1]->getHand().size() < 3) RenderSpace(1);
+  if (players[1]->getHand().size() < 3 || players[1]->getHand()[2].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
     if (stake[1].second.size() < i) RenderSpace(1);
-    else
+    else if (stake[1].first == false)
       RenderFaceDown();
+    else
+      output << stake[1].second[i - 1];
   }
   RenderSpace(1);
-  if (players[3]->getHand().size() < 2) RenderSpace(1);
+  if (players[3]->getHand().size() < 2 || players[3]->getHand()[1].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
   //str6
-  if (players[1]->getHand().size() < 4) RenderSpace(1);
+  if (players[1]->getHand().size() < 4 || players[1]->getHand()[3].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
     if (stake[2].second.size() < i) RenderSpace(1);
-    else
+    else if (stake[2].first == false)
       RenderFaceDown();
+    else
+      output << stake[2].second[i - 1];
   }
   RenderSpace(1);
-  if (players[3]->getHand().size() < 1) RenderSpace(1);
+  if (players[3]->getHand().size() < 1 || players[3]->getHand()[0].suit() == ESuit::NONE)
+    RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
@@ -100,8 +115,10 @@ void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck&
 
   for (size_t i = 1; i <= 4; ++i) {
     if (stake[3].second.size() < i) RenderSpace(1);
-    else
+    else if (stake[3].first == false)
       RenderFaceDown();
+    else
+      output << stake[3].second[i - 1];
   }
   RenderSpace(2);
   output << std::endl;

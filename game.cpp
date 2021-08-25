@@ -14,6 +14,10 @@ Game::Game(EGameModes mode, std::unique_ptr<IUserInterface>&& userInterface) :
   players.push_back(std::make_unique<Player>(Bot("Bully")));
   players.push_back(std::make_unique<Player>(Bot("Sleepy")));
   stake.reserve(4);
+  stake[0].second.reserve(5);
+  stake[1].second.reserve(5);
+  stake[2].second.reserve(5);
+  stake[3].second.reserve(5);
 }
 
 void Game::Start() {

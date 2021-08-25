@@ -5,7 +5,7 @@
 
 void Player::TakeOneCard(Deck& deck) {
   auto x = deck.GiveOne();
-  if (x.has_value()) hand.insert(std::move(x.value()));
+  if (x.has_value()) hand.push_back(std::move(x.value()));
 }
 
 bool Player::HasGenerals() const {
@@ -40,17 +40,13 @@ bool Player::WantEarlyPlay() const {
 void Player::PlayFourCard(size_t orderNum, std::vector<std::pair<bool, std::vector<Card>>>& stake) {
   if (orderNum == 0) {
     stake[orderNum].first = true;
-    stake[orderNum].second.push_back(std::move(*hand.begin()));
-
-    //    table[orderNum].second.insert(table[orderNum].second.begin(),
-    //        std::make_move_iterator(hand.begin()), std::make_move_iterator(hand.end()));
+    for (auto& card : hand) stake[orderNum].second.push_back(std::move(card));
   } else {
     //TODO: анализ предыдущих карт table[orderNum-1] и принятие решения бить или не бить?
     // пока временно всегда скидывать
-    //    table[orderNum] =
-    //        std::move(std::make_pair(false, std::move(std::vector(std::make_move_iterator(hand.begin()),
-    //                                            std::make_move_iterator(hand.end())))));
+    stake[orderNum].first = false;
+    for (auto& card : hand) stake[orderNum].second.push_back(std::move(card));
   }
 }
 
-const std::set<Card>& Player::getHand() const { return hand; }
+const std::vector<Card>& Player::getHand() const { return hand; }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <set>
 #include <string>
 
 #include "deck.h"
@@ -15,11 +14,11 @@ class Player {
   bool Has41() const;
   bool WantEarlyPlay() const;
   void PlayFourCard(size_t orderNum, std::vector<std::pair<bool, std::vector<Card>>>& stake);
-  const std::set<Card>& getHand() const;
+  const std::vector<Card>& getHand() const;
 
   private:
   std::string _name;
-  std::set<Card> hand;
+  std::vector<Card> hand;
 };
 
 class User : public Player {

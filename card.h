@@ -13,18 +13,18 @@ class Deck;
 class Card {
   public:
   friend Deck;
-  Card(int8_t value, int8_t points, ESuit suit) : _value(value), _points(points), _suit(suit) {}
+  Card(int8_t value, int8_t points, ESuit suit);
+
   Card(Card&& other);
-  Card& operator    =(Card&& other);
-  Card(const Card&) = default;
-  Card& operator=(const Card&) = default;
+  Card& operator=(Card&& other);
+
   int8_t value() const;
   int8_t points() const;
   ESuit suit() const;
 
   private:
-  //  Card(const Card&) = delete;
-  //  Card& operator=(Card&) = delete;
+  Card(const Card&) = delete;
+  Card& operator=(Card&) = delete;
 
   int8_t _value;
   int8_t _points;
