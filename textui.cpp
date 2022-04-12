@@ -4,7 +4,7 @@
 
 #include "worku32srting.h"
 
-const std::unordered_map<int, std::string> TextUI::SuitToColor {
+const std::unordered_map<int, std::string> TextUI::SuitToColor{
     {static_cast<int>(ESuit::NONE), "\x1b[0m"},
     {static_cast<int>(ESuit::HEARTS), "\x1b[31;47m"},
     {static_cast<int>(ESuit::DIAMONDS), "\x1b[31;1;47m"},
@@ -13,15 +13,16 @@ const std::unordered_map<int, std::string> TextUI::SuitToColor {
     {static_cast<int>(ESuit::ANY_SUIT), "\x1b[30;47m"},
 };
 
-void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck& deck, int score_t1,
-    int score_t2) const {
+void TextUI::RenderTable(const Players &players, const Stake &stake,
+                         const Deck &deck, int score_t1, int score_t2) const {
   usleep(200'000);
   system("clear");
 
-  //str1
+  // str1
   RenderSpace(2);
   for (size_t i = 4; i != 0; --i) {
-    if (players[2]->getHand().size() < i || players[2]->getHand()[i - 1].suit() == ESuit::NONE)
+    if (players[2]->getHand().size() < i ||
+        players[2]->getHand()[i - 1].suit() == ESuit::NONE)
       RenderSpace(1);
     else
       RenderFaceDown();
@@ -30,91 +31,104 @@ void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck&
   output << score_t1 << ':' << score_t2;
   output << std::endl;
 
-  //str2
+  // str2
   RenderSpace(8);
   output << std::endl;
 
-  //str3
-  if (players[1]->getHand().size() < 1 || players[1]->getHand()[0].suit() == ESuit::NONE)
+  // str3
+  if (players[1]->getHand().size() < 1 ||
+      players[1]->getHand()[0].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   RenderFaceDown();
   output << deck.Size() << ' ';
-  if (deck.Size() < 10) output << ' ';
+  if (deck.Size() < 10)
+    output << ' ';
   RenderSpace(3);
-  if (players[3]->getHand().size() < 4 || players[3]->getHand()[3].suit() == ESuit::NONE)
+  if (players[3]->getHand().size() < 4 ||
+      players[3]->getHand()[3].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
-  //str4
-  if (players[1]->getHand().size() < 2 || players[1]->getHand()[1].suit() == ESuit::NONE)
+  // str4
+  if (players[1]->getHand().size() < 2 ||
+      players[1]->getHand()[1].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
-    if (stake[0].second.size() < i) RenderSpace(1);
+    if (stake[0].second.size() < i)
+      RenderSpace(1);
     else if (stake[0].first == false)
       RenderFaceDown();
     else
       output << stake[0].second[i - 1];
   }
   RenderSpace(1);
-  if (players[3]->getHand().size() < 3 || players[3]->getHand()[2].suit() == ESuit::NONE)
+  if (players[3]->getHand().size() < 3 ||
+      players[3]->getHand()[2].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
-  //str5
-  if (players[1]->getHand().size() < 3 || players[1]->getHand()[2].suit() == ESuit::NONE)
+  // str5
+  if (players[1]->getHand().size() < 3 ||
+      players[1]->getHand()[2].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
-    if (stake[1].second.size() < i) RenderSpace(1);
+    if (stake[1].second.size() < i)
+      RenderSpace(1);
     else if (stake[1].first == false)
       RenderFaceDown();
     else
       output << stake[1].second[i - 1];
   }
   RenderSpace(1);
-  if (players[3]->getHand().size() < 2 || players[3]->getHand()[1].suit() == ESuit::NONE)
+  if (players[3]->getHand().size() < 2 ||
+      players[3]->getHand()[1].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
-  //str6
-  if (players[1]->getHand().size() < 4 || players[1]->getHand()[3].suit() == ESuit::NONE)
+  // str6
+  if (players[1]->getHand().size() < 4 ||
+      players[1]->getHand()[3].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   RenderSpace(1);
   for (size_t i = 1; i <= 4; ++i) {
-    if (stake[2].second.size() < i) RenderSpace(1);
+    if (stake[2].second.size() < i)
+      RenderSpace(1);
     else if (stake[2].first == false)
       RenderFaceDown();
     else
       output << stake[2].second[i - 1];
   }
   RenderSpace(1);
-  if (players[3]->getHand().size() < 1 || players[3]->getHand()[0].suit() == ESuit::NONE)
+  if (players[3]->getHand().size() < 1 ||
+      players[3]->getHand()[0].suit() == ESuit::NONE)
     RenderSpace(1);
   else
     RenderFaceDown();
   output << std::endl;
 
-  //str7
+  // str7
   RenderSpace(2);
 
   for (size_t i = 1; i <= 4; ++i) {
-    if (stake[3].second.size() < i) RenderSpace(1);
+    if (stake[3].second.size() < i)
+      RenderSpace(1);
     else if (stake[3].first == false)
       RenderFaceDown();
     else
@@ -123,14 +137,16 @@ void TextUI::RenderTable(const Players& players, const Stake& stake, const Deck&
   RenderSpace(2);
   output << std::endl;
 
-  //str8
+  // str8
   RenderSpace(2);
   size_t i = 4;
-  for (const auto& card : players[0]->getHand()) {
+  for (const auto &card : players[0]->getHand()) {
     output << card;
     --i;
   }
-  while (i--) { RenderSpace(1); }
+  while (i--) {
+    RenderSpace(1);
+  }
   output << std::endl;
 }
 
@@ -142,10 +158,13 @@ void TextUI::RenderFaceDown() const {
 }
 
 void TextUI::RenderSpace(size_t count) const {
-  while (count--) output << "   ";
+  while (count--)
+    output << "   ";
 }
 
-void TextUI::RenderWinner(int team) const { output << "Team" << team << " win!" << std::endl; }
+void TextUI::RenderWinner(int team) const {
+  output << "Team" << team << " win!" << std::endl;
+}
 
 std::string TextUI::AskUserName() const {
   std::string username;
@@ -154,9 +173,10 @@ std::string TextUI::AskUserName() const {
   return username;
 }
 
-std::u32string GenCardName(const Card& card) {
+std::u32string GenCardName(const Card &card) {
   char32_t suit;
-  if (card.suit() == ESuit::HEARTS) suit = 0xB << 4;
+  if (card.suit() == ESuit::HEARTS)
+    suit = 0xB << 4;
   else if (card.suit() == ESuit::DIAMONDS)
     suit = 0xC << 4;
   else if (card.suit() == ESuit::CROSSES)
@@ -166,7 +186,8 @@ std::u32string GenCardName(const Card& card) {
   else
     return {0x0000};
   char32_t nominal;
-  if (card.value() % 18 == 0) nominal = 0x6;
+  if (card.value() % 18 == 0)
+    nominal = 0x6;
   else if (card.value() == 1)
     nominal = 0x7;
   else if (card.value() == 2)
@@ -187,11 +208,15 @@ std::u32string GenCardName(const Card& card) {
   return {result};
 }
 
-void TextUI::TrumpIs(const Card& card) const { output << "Trump is: " << card << std::endl; }
+void TextUI::TrumpIs(const Card &card) const {
+  output << "Trump is: " << card << std::endl;
+}
 
-void TextUI::NeverBeliveInAce() const { output << "Never belive in Ace!" << std::endl; }
+void TextUI::NeverBeliveInAce() const {
+  output << "Never belive in Ace!" << std::endl;
+}
 
-std::ostream& operator<<(std::ostream& os, const Card& card) {
+std::ostream &operator<<(std::ostream &os, const Card &card) {
   os << TextUI::SuitToColor.at(static_cast<int>(card.suit()));
   os << GenCardName(card) << ' ';
   os << "\x1b[0m";

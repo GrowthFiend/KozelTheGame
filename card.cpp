@@ -2,24 +2,27 @@
 
 #include <tuple>
 
-Card::Card(int8_t value, int8_t points, ESuit suit) : _value(value), _points(points), _suit(suit) {}
+Card::Card(int8_t value, int8_t points, ESuit suit)
+    : _value(value), _points(points), _suit(suit) {}
 
-Card::Card(Card &&other) : _value(other._value), _points(other._points), _suit(other._suit) {
-  other._value  = -1;
+Card::Card(Card &&other)
+    : _value(other._value), _points(other._points), _suit(other._suit) {
+  other._value = -1;
   other._points = -1;
-  other._suit   = ESuit::NONE;
+  other._suit = ESuit::NONE;
 }
 
 Card &Card::operator=(Card &&other) {
-  if (&other == this) return *this;
+  if (&other == this)
+    return *this;
 
-  _value  = other._value;
+  _value = other._value;
   _points = other._points;
-  _suit   = other._suit;
+  _suit = other._suit;
 
-  other._value  = -1;
+  other._value = -1;
   other._points = -1;
-  other._suit   = ESuit::NONE;
+  other._suit = ESuit::NONE;
 
   return *this;
 }

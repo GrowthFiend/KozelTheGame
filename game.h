@@ -11,11 +11,11 @@
 enum class EGameModes { PlayerX1, BotsOnly };
 
 class Game {
-  public:
-  Game(EGameModes mode, std::unique_ptr<IUserInterface>&& userInterface);
+public:
+  Game(EGameModes mode, std::unique_ptr<IUserInterface> &&userInterface);
   void Start();
 
-  private:
+private:
   void playMatch();
   void dealCards();
   void showTrump();
