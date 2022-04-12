@@ -5,8 +5,8 @@
 #include <optional>
 #include <vector>
 
-#include "iuserinterface.h"
-#include "player.h"
+#include "iuserinterface.hpp"
+#include "player.hpp"
 
 enum class EGameModes { PlayerX1, BotsOnly };
 

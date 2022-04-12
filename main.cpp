@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "game.h"
-#include "textui.h"
+#include "game.hpp"
+#include "textui.hpp"
 
 int main() {
   Game game(EGameModes::PlayerX1,

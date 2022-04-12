@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 
-#include "deck.h"
-#include "player.h"
+#include "deck.hpp"
+#include "player.hpp"
 
 class IUserInterface {
 public:

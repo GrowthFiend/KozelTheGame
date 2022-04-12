@@ -1,4 +1,4 @@
-#include "worku32srting.h"
+#include "worku32srting.hpp"
 
 char *char_utf32_to_utf8(char32_t utf32, const char *buffer)
 // Encodes the UTF-32 encoded char into a UTF-8 string.

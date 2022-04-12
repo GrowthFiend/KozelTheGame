@@ -1,4 +1,4 @@
-#include "player.h"
+#include "player.hpp"
 
 #include <algorithm>
 #include <numeric>
@@ -38,7 +38,7 @@ bool Player::Has41() const {
 
 bool Player::WantEarlyPlay() const {
   // TODO: анализ раннего хода стоит ли ходить?
-  //  временно всегда да
+  //  FIXME: временно всегда да
   return true;
 }
 
@@ -51,7 +51,7 @@ void Player::PlayFourCard(
   } else {
     // TODO: анализ предыдущих карт table[orderNum-1] и принятие решения бить
     // или не бить?
-    //  пока временно всегда скидывать
+    //  FIXME: пока временно всегда скидывать
     stake[orderNum].first = false;
     for (auto &card : hand)
       stake[orderNum].second.push_back(std::move(card));

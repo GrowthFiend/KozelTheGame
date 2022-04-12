@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "deck.h"
+#include "deck.hpp"
 
 class Player {
 public:

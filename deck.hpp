@@ -4,7 +4,7 @@
 #include <optional>
 #include <vector>
 
-#include "card.h"
+#include "card.hpp"
 
 using Stake = std::vector<std::pair<bool, std::vector<Card>>>;
 

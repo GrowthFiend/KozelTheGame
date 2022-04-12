@@ -1,8 +1,8 @@
-#include "textui.h"
+#include "textui.hpp"
 
 #include <unistd.h>
 
-#include "worku32srting.h"
+#include "worku32srting.hpp"
 
 const std::unordered_map<int, std::string> TextUI::SuitToColor{
     {static_cast<int>(ESuit::NONE), "\x1b[0m"},

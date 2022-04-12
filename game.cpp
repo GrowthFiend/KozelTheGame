@@ -1,4 +1,4 @@
-#include "game.h"
+#include "game.hpp"
 
 Game::Game(EGameModes mode, std::unique_ptr<IUserInterface> &&userInterface)
     : score_t1(0), score_t2(0), lastTake(0), ui(std::move(userInterface)) {
