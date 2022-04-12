@@ -17,6 +17,7 @@ public:
 
   Card(Card &&other);
   Card &operator=(Card &&other);
+  ~Card() = default;
 
   int8_t value() const;
   int8_t points() const;

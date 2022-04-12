@@ -13,8 +13,9 @@ Card::Card(Card &&other)
 }
 
 Card &Card::operator=(Card &&other) {
-  if (&other == this)
+  if (&other == this) {
     return *this;
+  }
 
   _value = other._value;
   _points = other._points;

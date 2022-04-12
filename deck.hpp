@@ -20,7 +20,7 @@ public:
   const Card &ShowCard(size_t pos) const;
   std::optional<Card> GiveOne();
   size_t Size() const;
-  ~Deck(){};
+  ~Deck() = default;
 
 private:
   std::vector<Card> cards;
