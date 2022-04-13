@@ -11,11 +11,11 @@ class Player {
 public:
   explicit Player(std::string name) : _name(std::move(name)){};
   void TakeOneCard(Deck &deck);
-  [[nodiscard]] auto HasGenerals() const -> bool;
-  [[nodiscard]] auto HasSnotty() const -> bool;
-  [[nodiscard]] auto HasFlush() const -> bool;
-  [[nodiscard]] auto Has41() const -> bool;
-  static auto WantEarlyPlay() -> bool;
+  [[nodiscard]] bool HasGenerals() const;
+  [[nodiscard]] bool HasSnotty() const;
+  [[nodiscard]] bool HasFlush() const;
+  [[nodiscard]] bool Has41() const;
+  static bool WantEarlyPlay();
   void PlayFourCard(size_t orderNum,
                     std::vector<std::pair<bool, std::vector<Card>>> &stake);
   [[nodiscard]] auto getHand() const -> const std::vector<Card> &;

@@ -183,14 +183,14 @@ void TextUI::RenderWinner(int team) const {
   output << "Team" << team << " win!" << std::endl;
 }
 
-auto TextUI::AskUserName() const -> std::string {
+std::string TextUI::AskUserName() const {
   std::string username;
   output << "Please, enter youre name: ";
   input >> username;
   return username;
 }
 
-auto GenCardName(const Card &card) -> std::u32string {
+std::u32string GenCardName(const Card &card) {
   char32_t suit = 0;
 
   if (card.suit() == ESuit::HEARTS) {
@@ -238,7 +238,7 @@ void TextUI::NeverBeliveInAce() const {
   output << "Never belive in Ace!" << std::endl;
 }
 
-auto operator<<(std::ostream &os, const Card &card) -> std::ostream & {
+std::ostream &operator<<(std::ostream &os, const Card &card) {
   os << TextUI::SuitToColor.at(static_cast<int>(card.suit()));
   os << GenCardName(card) << ' ';
   os << "\x1b[0m";

@@ -3,7 +3,7 @@
 #include "game.hpp"
 #include "textui.hpp"
 
-auto main() -> int {
+int main() {
   Game game(EGameModes::PlayerX1,
             std::make_unique<TextUI>(std::cin, std::cout));
   game.Start();

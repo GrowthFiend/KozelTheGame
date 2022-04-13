@@ -37,7 +37,7 @@ void Game::playMatch() {
   showTable();
   //  deck.Shuffle(185);
   dealCards();
-  showTrump();
+  chooseTrump();
   if (isEndMatchTurn()) {
     //показать!
     return;
@@ -81,7 +81,7 @@ void Game::dealCards() {
   }
 }
 
-void Game::showTrump() {
+void Game::chooseTrump() {
   bool isAce = false;
   do {
     const auto &x =
@@ -98,7 +98,7 @@ void Game::showTrump() {
   } while (isAce);
 }
 
-auto Game::isEndMatchTurn() -> bool {
+bool Game::isEndMatchTurn() {
   if (playerWithGenerals().has_value()) {
     (playerWithGenerals().value() % 2) != 0U ? score_t1 += SCORE_FOR_GENERAL
                                              : score_t2 += SCORE_FOR_GENERAL;
@@ -113,7 +113,7 @@ auto Game::isEndMatchTurn() -> bool {
   return false;
 }
 
-auto Game::TryEarlyTurn() -> bool {
+bool Game::TryEarlyTurn() {
   auto earlyPlayers = playersWithFlushOr41();
   if (!earlyPlayers.empty()) {
     for (const auto &playerNum : earlyPlayers) {
@@ -129,7 +129,7 @@ auto Game::TryEarlyTurn() -> bool {
   return false;
 }
 
-auto Game::playerWithGenerals() const -> std::optional<size_t> {
+std::optional<size_t> Game::playerWithGenerals() const {
   for (size_t i = 0; i < 4; ++i) {
     if (players[i]->HasGenerals()) {
       return i;
@@ -138,7 +138,7 @@ auto Game::playerWithGenerals() const -> std::optional<size_t> {
   return {};
 }
 
-auto Game::playerWithSnotty() const -> std::optional<size_t> {
+std::optional<size_t> Game::playerWithSnotty() const {
   for (size_t i = 0; i < 4; ++i) {
     if (players[i]->HasSnotty()) {
       return i;
@@ -147,7 +147,7 @@ auto Game::playerWithSnotty() const -> std::optional<size_t> {
   return {};
 }
 
-auto Game::playersWithFlushOr41() const -> std::vector<size_t> {
+std::vector<size_t> Game::playersWithFlushOr41() const {
   std::vector<size_t> res;
   for (size_t i = 0; i < 4; ++i) {
     if (players[(i + lastTake) % 4]->HasFlush() ||

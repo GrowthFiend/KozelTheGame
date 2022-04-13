@@ -13,19 +13,19 @@ void Player::TakeOneCard(Deck &deck) {
   }
 }
 
-auto Player::HasGenerals() const -> bool {
+bool Player::HasGenerals() const {
   return std::count_if(hand.begin(), hand.end(), [](auto &c) {
            return c.value() >= VALUE_A;
          }) == HAND_MAX;
 }
 
-auto Player::HasSnotty() const -> bool {
+bool Player::HasSnotty() const {
   return std::count_if(hand.begin(), hand.end(), [](auto &c) {
            return c.value() % VALUE_S == VALUE_6;
          }) == HAND_MAX;
 }
 
-auto Player::HasFlush() const -> bool {
+bool Player::HasFlush() const {
   return std::accumulate(hand.begin(), hand.end(),
                          static_cast<int>(ESuit::ANY_SUIT),
                          [&](int SuitOfFlush, auto &card) {
@@ -33,7 +33,7 @@ auto Player::HasFlush() const -> bool {
                          }) != 0;
 }
 
-auto Player::Has41() const -> bool {
+bool Player::Has41() const {
   int pointsSum = 0;
   bool hasShama = false;
   for (const auto &card : hand) {
@@ -46,7 +46,7 @@ auto Player::Has41() const -> bool {
   return (pointsSum > FORTY || (pointsSum > FORTY_MINUS_SHAMA && hasShama));
 }
 
-auto Player::WantEarlyPlay() -> bool {
+bool Player::WantEarlyPlay() {
   // TODO(serg): анализ раннего хода стоит ли ходить?
   //  FIXME: временно всегда да
   return true;
@@ -70,4 +70,4 @@ void Player::PlayFourCard(
   }
 }
 
-auto Player::getHand() const -> const std::vector<Card> & { return hand; }
+const std::vector<Card> &Player::getHand() const { return hand; }

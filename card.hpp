@@ -14,16 +14,15 @@ class Card {
 public:
   friend Deck;
   Card(int8_t value, int8_t points, ESuit suit);
-
   Card(Card &&other) noexcept;
-  auto operator=(Card &&other) noexcept -> Card &;
+  Card &operator=(Card &&other) noexcept;
   Card(const Card &) = delete;
-  auto operator=(Card &) -> Card & = delete;
+  Card &operator=(Card &) = delete;
   ~Card() = default;
 
-  [[nodiscard]] auto value() const -> int8_t;
-  [[nodiscard]] auto points() const -> int8_t;
-  [[nodiscard]] auto suit() const -> ESuit;
+  [[nodiscard]] int8_t value() const;
+  [[nodiscard]] int8_t points() const;
+  [[nodiscard]] ESuit suit() const;
 
 private:
   int8_t _value;
@@ -31,4 +30,4 @@ private:
   ESuit _suit;
 };
 
-auto operator<(const Card &lhs, const Card &rhs) -> bool;
+bool operator<(const Card &lhs, const Card &rhs);

@@ -30,15 +30,15 @@ class Deck {
 public:
   Deck();
   Deck(const Deck &) = delete;
-  auto operator=(Deck &) -> Deck & = delete;
+  Deck &operator=(Deck &) = delete;
   Deck(const Deck &&) = delete;
-  auto operator=(Deck &&) -> Deck & = delete;
+  Deck &operator=(Deck &&) = delete;
   ~Deck() = default;
 
   void Shuffle(size_t seed);
-  [[nodiscard]] auto ShowCard(size_t pos) const -> const Card &;
-  auto GiveOne() -> std::optional<Card>;
-  [[nodiscard]] auto Size() const -> size_t;
+  [[nodiscard]] const Card &ShowCard(size_t pos) const;
+  std::optional<Card> GiveOne();
+  [[nodiscard]] size_t Size() const;
 
 private:
   std::vector<Card> cards;

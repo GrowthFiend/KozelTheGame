@@ -23,9 +23,9 @@ class TextUI : public IUserInterface {
 public:
   TextUI(std::istream &is, std::ostream &os) : input(is), output(os){};
   TextUI(const TextUI &) = delete;
-  auto operator=(TextUI &) -> TextUI & = delete;
+  TextUI &operator=(TextUI &) = delete;
   TextUI(const TextUI &&) = delete;
-  auto operator=(TextUI &&) -> TextUI & = delete;
+  TextUI &operator=(TextUI &&) = delete;
   ~TextUI() override = default;
   ;
   static const std::unordered_map<int, std::string> SuitToColor;
@@ -38,12 +38,12 @@ public:
   void RenderWinner(int team) const override;
   void TrumpIs(const Card &card) const override;
   void NeverBeliveInAce() const override;
-  [[nodiscard]] auto AskUserName() const -> std::string override;
+  [[nodiscard]] std::string AskUserName() const override;
 
 private:
   std::istream &input;
   std::ostream &output;
 };
 
-auto GenCardName(const Card &card) -> std::u32string;
-auto operator<<(std::ostream &os, const Card &card) -> std::ostream &;
+std::u32string GenCardName(const Card &card);
+std::ostream &operator<<(std::ostream &os, const Card &card);

@@ -1,6 +1,7 @@
 #include "deck.hpp"
 
 #include <algorithm>
+#include <mutex>
 #include <random>
 
 Deck::Deck() {
@@ -50,9 +51,9 @@ void Deck::Shuffle(size_t seed) {
   std::shuffle(cards.begin(), cards.end(), g);
 }
 
-auto Deck::ShowCard(size_t pos) const -> const Card & { return cards[pos]; }
+const Card &Deck::ShowCard(size_t pos) const { return cards[pos]; }
 
-auto Deck::GiveOne() -> std::optional<Card> {
+std::optional<Card> Deck::GiveOne() {
   if (static_cast<unsigned int>(!cards.empty()) != 0U) {
     Card temp = std::move(cards.back());
     cards.pop_back();
@@ -61,4 +62,4 @@ auto Deck::GiveOne() -> std::optional<Card> {
   return {};
 }
 
-auto Deck::Size() const -> size_t { return cards.size(); }
+size_t Deck::Size() const { return cards.size(); }

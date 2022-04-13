@@ -12,7 +12,7 @@ Card::Card(Card &&other) noexcept
   other._suit = ESuit::NONE;
 }
 
-auto Card::operator=(Card &&other) noexcept -> Card & {
+Card &Card::operator=(Card &&other) noexcept {
   if (&other == this) {
     return *this;
   }
@@ -28,13 +28,13 @@ auto Card::operator=(Card &&other) noexcept -> Card & {
   return *this;
 }
 
-auto Card::value() const -> int8_t { return _value; }
+int8_t Card::value() const { return _value; }
 
-auto Card::points() const -> int8_t { return _points; }
+int8_t Card::points() const { return _points; }
 
-auto Card::suit() const -> ESuit { return _suit; }
+ESuit Card::suit() const { return _suit; }
 
-auto operator<(const Card &lhs, const Card &rhs) -> bool {
+bool operator<(const Card &lhs, const Card &rhs) {
   return std::make_tuple(lhs.suit(), lhs.value(), lhs.points()) <
          std::make_tuple(rhs.suit(), rhs.value(), rhs.points());
 }
