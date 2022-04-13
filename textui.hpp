@@ -27,7 +27,6 @@ public:
   TextUI(const TextUI &&) = delete;
   TextUI &operator=(TextUI &&) = delete;
   ~TextUI() override = default;
-  ;
   static const std::unordered_map<int, std::string> SuitToColor;
   // IRenderSystem interface
 
