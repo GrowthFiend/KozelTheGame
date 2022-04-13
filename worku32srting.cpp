@@ -1,9 +1,8 @@
 #include "worku32srting.hpp"
 
-auto char_utf32_to_utf8(char32_t utf32, const char *buffer) -> char *
+auto char_utf32_to_utf8(char32_t utf32, const char *buffer) -> void
 // Encodes the UTF-32 encoded char into a UTF-8 string.
-// Stores the result in the buffer and returns the position
-// of the end of the buffer
+// Stores the result in the buffer
 // (unchecked access, be sure to provide a buffer that is big enough)
 {
   char *end = const_cast<char *>(buffer);
@@ -23,11 +22,10 @@ auto char_utf32_to_utf8(char32_t utf32, const char *buffer) -> char *
     *(end++) = 0b1000'0000 + static_cast<unsigned>(utf32 & 0b0011'1111);
   }
   *end = '\0';
-  return end;
 }
 
 auto operator<<(std::ostream &os, const char32_t *s) -> std::ostream & {
-  const char buffer[5]{0}; // That's the famous "big-enough buffer"
+  const char buffer[4]{0};
   while ((s != nullptr) && (*s != 0U)) {
     char_utf32_to_utf8(*(s++), buffer);
     os << buffer;
