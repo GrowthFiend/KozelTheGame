@@ -4,43 +4,43 @@
 #include <random>
 
 Deck::Deck() {
-  cards.reserve(37);
-  cards.push_back(std::move(Card{18, 0, ESuit::ANY_SUIT}));
-  cards.push_back(std::move(Card{1, 0, ESuit::SPADES}));
-  cards.push_back(std::move(Card{2, 0, ESuit::SPADES}));
-  cards.push_back(std::move(Card{3, 0, ESuit::SPADES}));
-  cards.push_back(std::move(Card{4, 2, ESuit::SPADES}));
-  cards.push_back(std::move(Card{5, 3, ESuit::SPADES}));
-  cards.push_back(std::move(Card{6, 4, ESuit::SPADES}));
-  cards.push_back(std::move(Card{7, 10, ESuit::SPADES}));
-  cards.push_back(std::move(Card{8, 11, ESuit::SPADES}));
-  cards.push_back(std::move(Card{0, 0, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{1, 0, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{2, 0, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{3, 0, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{4, 2, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{5, 3, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{6, 4, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{7, 10, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{8, 11, ESuit::HEARTS}));
-  cards.push_back(std::move(Card{0, 0, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{1, 0, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{2, 0, ESuit::CROSSES})); //
-  cards.push_back(std::move(Card{3, 0, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{4, 2, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{5, 3, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{6, 4, ESuit::CROSSES})); //
-  cards.push_back(std::move(Card{7, 10, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{8, 11, ESuit::DIAMONDS}));
-  cards.push_back(std::move(Card{0, 0, ESuit::CROSSES}));
-  cards.push_back(std::move(Card{1, 0, ESuit::CROSSES})); //
-  cards.push_back(std::move(Card{2, 0, ESuit::CROSSES}));
-  cards.push_back(std::move(Card{3, 0, ESuit::CROSSES}));
-  cards.push_back(std::move(Card{4, 2, ESuit::CROSSES}));
-  cards.push_back(std::move(Card{5, 3, ESuit::CROSSES})); //
-  cards.push_back(std::move(Card{6, 4, ESuit::CROSSES}));
-  cards.push_back(std::move(Card{7, 10, ESuit::CROSSES}));
-  cards.push_back(std::move(Card{8, 11, ESuit::CROSSES}));
+  cards.reserve(CARD_MAX);
+  cards.push_back(std::move(Card{VALUE_S, POINT_0, ESuit::ANY_SUIT}));
+  cards.push_back(std::move(Card{VALUE_7, POINT_0, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_8, POINT_0, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_9, POINT_0, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_J, POINT_J, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_Q, POINT_Q, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_K, POINT_K, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_T, POINT_T, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_A, POINT_A, ESuit::SPADES}));
+  cards.push_back(std::move(Card{VALUE_6, POINT_0, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_7, POINT_0, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_8, POINT_0, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_9, POINT_0, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_J, POINT_J, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_Q, POINT_Q, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_K, POINT_K, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_T, POINT_T, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_A, POINT_A, ESuit::HEARTS}));
+  cards.push_back(std::move(Card{VALUE_6, POINT_0, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_7, POINT_0, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_8, POINT_0, ESuit::CROSSES})); //
+  cards.push_back(std::move(Card{VALUE_9, POINT_0, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_J, POINT_J, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_Q, POINT_Q, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_K, POINT_K, ESuit::CROSSES})); //
+  cards.push_back(std::move(Card{VALUE_T, POINT_T, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_A, POINT_A, ESuit::DIAMONDS}));
+  cards.push_back(std::move(Card{VALUE_6, POINT_0, ESuit::CROSSES}));
+  cards.push_back(std::move(Card{VALUE_7, POINT_0, ESuit::CROSSES})); //
+  cards.push_back(std::move(Card{VALUE_8, POINT_0, ESuit::CROSSES}));
+  cards.push_back(std::move(Card{VALUE_9, POINT_0, ESuit::CROSSES}));
+  cards.push_back(std::move(Card{VALUE_J, POINT_J, ESuit::CROSSES}));
+  cards.push_back(std::move(Card{VALUE_Q, POINT_Q, ESuit::CROSSES})); //
+  cards.push_back(std::move(Card{VALUE_K, POINT_K, ESuit::CROSSES}));
+  cards.push_back(std::move(Card{VALUE_T, POINT_T, ESuit::CROSSES}));
+  cards.push_back(std::move(Card{VALUE_A, POINT_A, ESuit::CROSSES}));
 }
 
 void Deck::Shuffle(size_t seed) {
@@ -50,10 +50,10 @@ void Deck::Shuffle(size_t seed) {
   std::shuffle(cards.begin(), cards.end(), g);
 }
 
-const Card &Deck::ShowCard(size_t pos) const { return cards[pos]; }
+auto Deck::ShowCard(size_t pos) const -> const Card & { return cards[pos]; }
 
-std::optional<Card> Deck::GiveOne() {
-  if (cards.size()) {
+auto Deck::GiveOne() -> std::optional<Card> {
+  if (static_cast<unsigned int>(!cards.empty()) != 0U) {
     Card temp = std::move(cards.back());
     cards.pop_back();
     return temp;
@@ -61,4 +61,4 @@ std::optional<Card> Deck::GiveOne() {
   return {};
 }
 
-size_t Deck::Size() const { return cards.size(); }
+auto Deck::Size() const -> size_t { return cards.size(); }

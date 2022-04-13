@@ -15,21 +15,20 @@ public:
   friend Deck;
   Card(int8_t value, int8_t points, ESuit suit);
 
-  Card(Card &&other);
-  Card &operator=(Card &&other);
+  Card(Card &&other) noexcept;
+  auto operator=(Card &&other) noexcept -> Card &;
+  Card(const Card &) = delete;
+  auto operator=(Card &) -> Card & = delete;
   ~Card() = default;
 
-  int8_t value() const;
-  int8_t points() const;
-  ESuit suit() const;
+  [[nodiscard]] auto value() const -> int8_t;
+  [[nodiscard]] auto points() const -> int8_t;
+  [[nodiscard]] auto suit() const -> ESuit;
 
 private:
-  Card(const Card &) = delete;
-  Card &operator=(Card &) = delete;
-
   int8_t _value;
   int8_t _points;
   ESuit _suit;
 };
 
-bool operator<(const Card &lhs, const Card &rhs);
+auto operator<(const Card &lhs, const Card &rhs) -> bool;

@@ -1,4 +1,6 @@
 #include "game.hpp"
+#include "deck.hpp"
+#include <cstdint>
 
 Game::Game(EGameModes mode, std::unique_ptr<IUserInterface> &&userInterface)
     : score_t1(0), score_t2(0), lastTake(0), ui(std::move(userInterface)) {
@@ -16,15 +18,16 @@ Game::Game(EGameModes mode, std::unique_ptr<IUserInterface> &&userInterface)
   players.push_back(std::make_unique<Player>(Bot("Screem")));
   players.push_back(std::make_unique<Player>(Bot("Bully")));
   players.push_back(std::make_unique<Player>(Bot("Sleepy")));
-  stake.reserve(4);
-  stake[0].second.reserve(5);
-  stake[1].second.reserve(5);
-  stake[2].second.reserve(5);
-  stake[3].second.reserve(5);
+
+  stake.reserve(PLAYER_COUNT);
+  stake[0].second.reserve(HAND_MAX);
+  stake[1].second.reserve(HAND_MAX);
+  stake[2].second.reserve(HAND_MAX);
+  stake[3].second.reserve(HAND_MAX);
 }
 
 void Game::Start() {
-  while (score_t1 < 12 && score_t2 < 12) {
+  while (score_t1 < SCORE_TO_WIN && score_t2 < SCORE_TO_WIN) {
     playMatch();
   }
   showWinner();
@@ -53,21 +56,26 @@ void Game::playMatch() {
   //забрать взятку
 
   //посчитать общую взятку и начислить очки
-  score_t2 = 12;
+  score_t2 = SCORE_TO_WIN;
   //вернуть карты в колоду
 }
 
-void Game::showWinner() const { ui->RenderWinner((score_t2 < score_t1) + 1); }
+void Game::showWinner() const {
+  ui->RenderWinner(static_cast<int>(score_t2 < score_t1) + 1);
+}
 
 void Game::showTable() const {
   ui->RenderTable(players, stake, deck, score_t1, score_t2);
 }
 
 void Game::dealCards() {
-  for (size_t i = 0; i < 4; ++i) {
-    for (size_t j = 0; j < 4; ++j) {
-      players[(j + lastTake + (deck.Size() > (36 - 4 * 4))) % 4]->TakeOneCard(
-          deck);
+  for (size_t i = 0; i < PLAYER_COUNT; ++i) {
+    for (size_t j = 0; j < HAND_MAX; ++j) {
+      players[(j + lastTake +
+               static_cast<unsigned long>(
+                   deck.Size() > (CARD_MAX - PLAYER_COUNT * HAND_MAX))) %
+              PLAYER_COUNT]
+          ->TakeOneCard(deck);
       showTable();
     }
   }
@@ -76,32 +84,36 @@ void Game::dealCards() {
 void Game::showTrump() {
   bool isAce = false;
   do {
-    const auto &x = deck.ShowCard(deck.Size() / 4 + rand() % 9);
+    const auto &x =
+        deck.ShowCard(deck.Size() / 4 + rand() % (deck.Size() / 2 - 1));
     ui->TrumpIs(x);
     trump = x.suit();
-    if (x.points() == 11) {
+    if (x.points() == POINT_A) {
       isAce = true;
       ui->NeverBeliveInAce();
-    } else
+    } else {
       isAce = false;
-    usleep(1000000);
+    }
+    usleep(STEP_TIMEX5);
   } while (isAce);
 }
 
-bool Game::isEndMatchTurn() {
+auto Game::isEndMatchTurn() -> bool {
   if (playerWithGenerals().has_value()) {
-    playerWithGenerals().value() % 2 ? score_t1 += 12 : score_t2 += 12;
+    (playerWithGenerals().value() % 2) != 0U ? score_t1 += SCORE_FOR_GENERAL
+                                             : score_t2 += SCORE_FOR_GENERAL;
     return true;
   }
 
   if (playerWithSnotty().has_value()) {
-    playerWithSnotty().value() % 2 ? score_t1 += 6 : score_t2 += 6;
+    (playerWithSnotty().value() % 2) != 0U ? score_t1 += SCORE_FOR_SNOTTY
+                                           : score_t2 += SCORE_FOR_SNOTTY;
     return true;
   }
   return false;
 }
 
-bool Game::TryEarlyTurn() {
+auto Game::TryEarlyTurn() -> bool {
   auto earlyPlayers = playersWithFlushOr41();
   if (!earlyPlayers.empty()) {
     for (const auto &playerNum : earlyPlayers) {
@@ -117,7 +129,7 @@ bool Game::TryEarlyTurn() {
   return false;
 }
 
-std::optional<size_t> Game::playerWithGenerals() const {
+auto Game::playerWithGenerals() const -> std::optional<size_t> {
   for (size_t i = 0; i < 4; ++i) {
     if (players[i]->HasGenerals()) {
       return i;
@@ -126,7 +138,7 @@ std::optional<size_t> Game::playerWithGenerals() const {
   return {};
 }
 
-std::optional<size_t> Game::playerWithSnotty() const {
+auto Game::playerWithSnotty() const -> std::optional<size_t> {
   for (size_t i = 0; i < 4; ++i) {
     if (players[i]->HasSnotty()) {
       return i;
@@ -135,7 +147,7 @@ std::optional<size_t> Game::playerWithSnotty() const {
   return {};
 }
 
-std::vector<size_t> Game::playersWithFlushOr41() const {
+auto Game::playersWithFlushOr41() const -> std::vector<size_t> {
   std::vector<size_t> res;
   for (size_t i = 0; i < 4; ++i) {
     if (players[(i + lastTake) % 4]->HasFlush() ||
