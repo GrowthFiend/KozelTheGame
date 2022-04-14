@@ -5,8 +5,8 @@
 
 #include "deck.hpp"
 
-const uint8_t FORTY = 40;
-const uint8_t FORTY_MINUS_SHAMA = 29;
+constexpr uint8_t FORTY = 40;
+constexpr uint8_t FORTY_MINUS_SHAMA = 29;
 class Player {
 public:
   explicit Player(std::string name) : _name(std::move(name)){};

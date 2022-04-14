@@ -10,15 +10,15 @@
 #include "iuserinterface.hpp"
 #include "player.hpp"
 
-const uint8_t HAND_MAX = 4;
-const uint8_t TEAM_COUNT = 2;
-const uint8_t PLAYERS_BY_TEAM = 2;
+constexpr uint8_t HAND_MAX = 4;
+constexpr uint8_t TEAM_COUNT = 2;
+constexpr uint8_t PLAYERS_BY_TEAM = 2;
 constexpr uint8_t PLAYER_COUNT = TEAM_COUNT * PLAYERS_BY_TEAM;
-const uint8_t SCORE_TO_WIN = 12;
-const uint8_t SCORE_FOR_GENERAL = 12;
-const uint8_t SCORE_FOR_SNOTTY = 6;
-const uint32_t STEP_TIME = 200'000;
-const uint32_t STEP_TIMEX5 = 1'000'000;
+constexpr uint8_t SCORE_TO_WIN = 12;
+constexpr uint8_t SCORE_FOR_GENERAL = 12;
+constexpr uint8_t SCORE_FOR_SNOTTY = 6;
+constexpr uint32_t STEP_TIME = 200'000;
+constexpr uint32_t STEP_TIMEX5 = 1'000'000;
 
 enum class EGameModes { PlayerX1, BotsOnly };
 

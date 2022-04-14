@@ -4,21 +4,21 @@
 
 #include "iuserinterface.hpp"
 
-const char32_t UNICODE_HEARTS = 0xB;
-const char32_t UNICODE_DIAMONDS = 0xC;
-const char32_t UNICODE_CROSSES = 0xD;
-const char32_t UNICODE_SPADES = 0xA;
-const char32_t UNICODE_DEFAULT = 0x0000;
-const char32_t UNICODE_6 = 0x6;
-const char32_t UNICODE_7 = 0x7;
-const char32_t UNICODE_8 = 0x8;
-const char32_t UNICODE_9 = 0x9;
-const char32_t UNICODE_J = 0xB;
-const char32_t UNICODE_Q = 0xD;
-const char32_t UNICODE_K = 0xE;
-const char32_t UNICODE_T = 0xA;
-const char32_t UNICODE_A = 0x1;
-const char32_t UTICODE_PREFIX = 0x1F000;
+constexpr char32_t UNICODE_HEARTS = 0xB;
+constexpr char32_t UNICODE_DIAMONDS = 0xC;
+constexpr char32_t UNICODE_CROSSES = 0xD;
+constexpr char32_t UNICODE_SPADES = 0xA;
+constexpr char32_t UNICODE_DEFAULT = 0x0000;
+constexpr char32_t UNICODE_6 = 0x6;
+constexpr char32_t UNICODE_7 = 0x7;
+constexpr char32_t UNICODE_8 = 0x8;
+constexpr char32_t UNICODE_9 = 0x9;
+constexpr char32_t UNICODE_J = 0xB;
+constexpr char32_t UNICODE_Q = 0xD;
+constexpr char32_t UNICODE_K = 0xE;
+constexpr char32_t UNICODE_T = 0xA;
+constexpr char32_t UNICODE_A = 0x1;
+constexpr char32_t UTICODE_PREFIX = 0x1F000;
 class TextUI : public IUserInterface {
 public:
   TextUI(std::istream &is, std::ostream &os) : input(is), output(os){};

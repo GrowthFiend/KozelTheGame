@@ -1,5 +1,6 @@
 #include "textui.hpp"
 
+#include <string>
 #include <unistd.h>
 
 #include "deck.hpp"
